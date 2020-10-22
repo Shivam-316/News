@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.views.generic import ListView,CreateView,DetailView
 from django.views.generic.edit import UpdateView,DeleteView
 from .models import Article
@@ -7,7 +7,8 @@ from django.core.exceptions import PermissionDenied
 
 
 
-class ArticleCreateView(LoginRequiredMixin,CreateView):
+class ArticleCreateView(PermissionRequiredMixin,LoginRequiredMixin,CreateView):
+    permission_required='articles.can_add_article'
     model= Article
     template_name= 'article_create.html'
     fields=('title','body')

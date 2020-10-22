@@ -16,6 +16,10 @@ class Article(models.Model):
         get_user_model(),
         on_delete=models.CASCADE,
         )
+
+    class Meta:
+        permissions=(('can_add_article','add article'),)
+        
     def __str__(self):
         return self.title
 
